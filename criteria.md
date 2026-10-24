@@ -53,61 +53,51 @@ whether you hit them:
 
 ## 1.
 
-<!-- Your criterion. It must name a number. -->
-
-
+Overall accuracy is at least 0.70 on the held-out set, on every one of the three seeds (42, 7, 2024).
 
 **Why this target:**
 
-
+With three labels a coin-flip gets about 33%, and always guessing the biggest label gets maybe 40%. 0.70 is roughly double chance and means about 7 in 10 posts are routed correctly, which is where I'd call a forum-post sorter useful. I'm not going higher because my labels (`info`, `experience`, `question`) overlap at the edges, e.g. a post that tells a story and ends with a question, so some disagreement is built into the taxonomy.
 
 ---
 
 ## 2.
 
-<!-- Your criterion. -->
-
-
+Every label has an F1 of at least 0.60 on the held-out set, on all three seeds.
 
 **Why this target:**
 
-
+Accuracy can hide one label failing. Each label has only about 8-10 test examples, so one wrong prediction swings its F1 a lot. That is why this floor is lower than the overall target. I expect `question` to be easiest (it often has a question mark) and `experience` vs `info` to be the hard pair.
 
 ---
 
 ## 3.
 
-<!-- Your criterion. -->
-
-
+No label has fewer than 25% or more than 45% of my labelled examples (about 50-90 of 200).
 
 **Why this target:**
 
-
+A skewed split lets the model score well by favouring the big label, and a label with few examples gets a noisy F1. Three labels would be 33% each if even. This range allows natural imbalance (people post more questions and stories than fact dumps) without letting any label become a rounding error.
 
 ---
 
 ## 4.
 
-<!-- Your criterion. -->
-
-
+When I relabel a random 30 of my own posts without looking at my earlier labels, I agree with myself on at least 85% (26 of 30).
 
 **Why this target:**
 
-
+If I can't match my own labels, the model has no consistent signal to learn, and its accuracy ceiling is my agreement rate. 85% is below 100% because of the `experience`/`info` and `question`/`experience` borderline posts, but low enough to expose a definition that is too vague. This also checks my definitions against the staff-set exercise.
 
 ---
 
 ## 5.
 
-<!-- Your criterion. -->
-
-
+Predictions with confidence of at least 0.80 are correct at least 85% of the time, and that rate is higher than for predictions below 0.80, on all three seeds.
 
 **Why this target:**
 
-
+A confidence score is only useful if it means something. If high-confidence predictions are no more accurate than low-confidence ones, I can't use confidence to send uncertain posts to a human. 85% is deliberately above the overall 0.70 target, because the confident subset should be the more reliable one.
 
 ---
 
