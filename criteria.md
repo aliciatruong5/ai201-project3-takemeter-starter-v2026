@@ -57,7 +57,7 @@ Overall accuracy is at least 0.70 on the held-out set, on every one of the three
 
 **Why this target:**
 
-With three labels a coin-flip gets about 33%, and always guessing the biggest label gets maybe 40%. 0.70 is roughly double chance and means about 7 in 10 posts are routed correctly, which is where I'd call a forum-post sorter useful. I'm not going higher because my labels (`info`, `experience`, `question`) overlap at the edges, e.g. a post that tells a story and ends with a question, so some disagreement is built into the taxonomy.
+With four labels a coin-flip gets about 25%, and always guessing the biggest label gets maybe 40%. 0.70 is well above both and means about 7 in 10 posts are routed correctly, which is where I'd call a forum-post sorter useful. I'm not going higher because my labels (`info`, `experience`, `question`, `appreciation`) overlap at the edges, e.g. a post about what someone bought that also says where they bought it, so some disagreement is built into the taxonomy.
 
 ---
 
@@ -67,17 +67,17 @@ Every label has an F1 of at least 0.60 on the held-out set, on all three seeds.
 
 **Why this target:**
 
-Accuracy can hide one label failing. Each label has only about 8-10 test examples, so one wrong prediction swings its F1 a lot. That is why this floor is lower than the overall target. I expect `question` to be easiest (it often has a question mark) and `experience` vs `info` to be the hard pair.
+Accuracy can hide one label failing. Each label has only about 8-10 test examples, so one wrong prediction swings its F1 a lot. That is why this floor is lower than the overall target. I expect `question` to be easiest (it often has a question mark) and `experience` vs `info` to be the hard pair. `appreciation` may be small, so its F1 could be the jumpiest.
 
 ---
 
 ## 3.
 
-No label has fewer than 25% or more than 45% of my labelled examples (about 50-90 of 200).
+No label has fewer than 15% or more than 40% of my labelled examples (about 30-80 of 200).
 
 **Why this target:**
 
-A skewed split lets the model score well by favouring the big label, and a label with few examples gets a noisy F1. Three labels would be 33% each if even. This range allows natural imbalance (people post more questions and stories than fact dumps) without letting any label become a rounding error.
+I have four labels (`info`, `experience`, `question`, `appreciation`), so an even split is 25% each. A skewed split lets the model score well by favouring the big label, and a label with few examples gets a noisy F1. The floor is 15% because short `appreciation` comments are probably rarer than posts in the other labels, and the ceiling is 40% because the buying/collection posts could easily pile up in `info` or `experience`.
 
 ---
 

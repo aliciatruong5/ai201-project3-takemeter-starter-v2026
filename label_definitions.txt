@@ -5,6 +5,7 @@
 #
 # Delete the examples below and put yours in.
 
-info: shares checkable facts (a stat, time, date, result, or rule) and the post is mainly about delivering them; the writer is informing, not asking or emoting
-experience: the writer describes something that happened to them personally (a run, a race, an injury, a milestone) and how it felt; the focus is their own story or feelings, not facts for others or a request for help
-question: the main purpose of the post is to ask for an answer, advice, or opinion from other readers; it has a question or an explicit request, even if some context or facts come first
+info: gives practical, checkable details about Miffy products or buying them (where something is sold, prices, stock, release dates, whether a seller is legit, what a store told them); the post is mainly about passing that information on
+experience: the writer talks about their own Miffy experience, collection, or opinion (what they own or bought, how they got into Miffy, how they feel about the trend); the focus is their personal story or view, not facts for others or a request
+question: the main purpose is to ask other readers for an answer, advice, or opinion (where to buy, is it good quality, has anyone used this seller); it has a question or explicit request, even if context comes first
+appreciation: a short comment that just likes or agrees with the post (compliments, "love this", "same", "so cute"); it adds no new facts, no personal story, and asks no question
