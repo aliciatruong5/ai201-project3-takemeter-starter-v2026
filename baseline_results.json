@@ -1,0 +1,190 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 30,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 30,
+    "accuracy": 0.3,
+    "f1_macro": 0.20391705069124422,
+    "per_label": {
+      "appreciation": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "experience": {
+        "precision": 0.3157894736842105,
+        "recall": 0.5,
+        "f1": 0.3870967741935484,
+        "support": 12
+      },
+      "info": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "question": {
+        "precision": 0.3,
+        "recall": 0.75,
+        "f1": 0.4285714285714285,
+        "support": 4
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "I grew up with Miffy books as a baby and young kid. I\u2019ve always adored her but I didn\u2019t become aware of the merchandise until recently. Yay for her anniversary!",
+      "gold": "experience",
+      "predicted": "question"
+    },
+    {
+      "text": "They\u2019re fabulous! You\u2019re so lucky!",
+      "gold": "appreciation",
+      "predicted": "experience"
+    },
+    {
+      "text": "Not yet. But Martube is an actual brand carrying licensed miffy products. So it should be safe!",
+      "gold": "info",
+      "predicted": "experience"
+    },
+    {
+      "text": "2 years ago nobody cared about Miffy. It\u2019s like she\u2019s the new HK",
+      "gold": "experience",
+      "predicted": "question"
+    },
+    {
+      "text": "Hi! How you asked for the giant Miffy head pillow if it\u2019s not on the app? Just showed them the picture? Thanks!",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "There's Miffy in a Fair Isle Christmas Sweater/Jumper, Boris in a green Christmas Sweater/Jumper, Miffy in a red dress with a lace collar and her pet puppy, Miffy in a red hood and scarf and blue snowsuit and her pet puppy, (I believe this one is called Snowy Day Miffy), and Boris in just a green shirt.",
+      "gold": "info",
+      "predicted": "experience"
+    },
+    {
+      "text": "Which items do you think are worth keeping with the price tag?",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "Here\u2019s a closeup of texture of the quilt. The underside is a darker green (more bluish gray) and the miffy heads are on the back too. The miffy parts are like a soft gauze material and the rest of the quilt is a slightly rougher cotton shell that\u2019s a bit scratchy. Maybe it\u2019ll soften with washes idk. It\u2019s very thin. Like 1-2 mm at best (think towel) but the edge is doubled up so it\u2019s a bit thicker (~1cm). You could use it as a throw but I wouldn\u2019t use it to sleep unless your house is like 80F+ or you have something else under it.",
+      "gold": "info",
+      "predicted": "experience"
+    },
+    {
+      "text": "I would black out and keep rolling just to get this one",
+      "gold": "experience",
+      "predicted": "question"
+    },
+    {
+      "text": "Why does it look like she giving us the bird?!",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "This is vile! Resellers ruin anything fun and cute. Let the actual fans enjoy Miffy stuff!!",
+      "gold": "experience",
+      "predicted": "experience"
+    },
+    {
+      "text": "Been obsessed with miffy lately",
+      "gold": "experience",
+      "predicted": "question"
+    },
+    {
+      "text": "MIFFFFYYY!!! \ud83d\ude0d\ud83d\ude0d\ud83d\ude0d",
+      "gold": "appreciation",
+      "predicted": "question"
+    },
+    {
+      "text": "JUSTICE HAS BEEN SERVED THANK YOU",
+      "gold": "appreciation",
+      "predicted": "experience"
+    },
+    {
+      "text": "omg where did you find her",
+      "gold": "question",
+      "predicted": "experience"
+    },
+    {
+      "text": "I love almost everything my most favorite are the rugs the face rug and the bathroom face rug, along with the bed sheets grid",
+      "gold": "experience",
+      "predicted": "experience"
+    },
+    {
+      "text": "my heart was broken when I saw the first picture \ud83e\udd72Thank you for saving her, such an amazing recovery \u2764\ufe0f\u200d\ud83e\ude79",
+      "gold": "appreciation",
+      "predicted": "experience"
+    },
+    {
+      "text": "My exact purchases as well , loaded gc and no Miffy picture so bummed! My store had absolutely no mugs so I ended getting green water bottle",
+      "gold": "experience",
+      "predicted": "experience"
+    },
+    {
+      "text": "as someone who is from the country where Miffy is from, I must say you're husband is wrong, and there is clearly room for more Nijntje/Miffy's",
+      "gold": "experience",
+      "predicted": "question"
+    },
+    {
+      "text": "They're legit but I would highly recommend purchasing through their Taobao site instead. I was able to order one of the blind boxes and the gift box for ~30% less total using Taobao direct to Canada.",
+      "gold": "info",
+      "predicted": "experience"
+    },
+    {
+      "text": "I bought the purple one for a friend. NGL, I want to keep it. Then I spent an hour tonight trying to figure out which one I\u2019d want most. I ended up getting Melanie. Now I\u2019m regretting and want the others! lol",
+      "gold": "experience",
+      "predicted": "appreciation"
+    },
+    {
+      "text": "Miffy is a character, anyone can start liking miffy lol I grew up with Hello Kitty, and I started to like Miffy for her aesthetics and I like to collect things.",
+      "gold": "experience",
+      "predicted": "experience"
+    },
+    {
+      "text": "Pulled the mystery keychain from the HEMA blindboxes!",
+      "gold": "experience",
+      "predicted": "experience"
+    },
+    {
+      "text": "This is sick! I\u2019d learn how to play chess just to use this.",
+      "gold": "appreciation",
+      "predicted": "experience"
+    },
+    {
+      "text": "Miffy blanket!! Found at Homesense Canada",
+      "gold": "info",
+      "predicted": "experience"
+    },
+    {
+      "text": "My Sleepy Miffys",
+      "gold": "experience",
+      "predicted": "experience"
+    },
+    {
+      "text": "Yes, \ud83e\udd17\ud83e\udd70thank you for rescuing Miffy\u2763\ufe0f She is looking like herself again with all your love and care \u2764\ufe0fI am glad she has a happy home again\ud83d\ude4f",
+      "gold": "appreciation",
+      "predicted": "experience"
+    },
+    {
+      "text": "JapanLA has gotten a lot of Miffy merch recently. I\u2019m not sure about blind boxes for Miffy but there\u2019s def some stuff to check out",
+      "gold": "info",
+      "predicted": "experience"
+    },
+    {
+      "text": "Wow! You really lucked out on finding all of the pieces of the Sakura collection. I think the only missing thing is the set of white and pink dish towels I\u2019ve seen other people post.",
+      "gold": "appreciation",
+      "predicted": "question"
+    },
+    {
+      "text": "right?! btw, i bought it on an online store, or you can call it a japanese surplus as well. i'll dm you the links because i found some, but they're from mercari jp",
+      "gold": "info",
+      "predicted": "experience"
+    }
+  ]
+}
