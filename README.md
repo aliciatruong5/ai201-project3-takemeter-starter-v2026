@@ -139,17 +139,22 @@ If the post's main point is a fact another shopper could act on (where it's sold
 
 <!-- Your starting model, your settings, and anything you changed and why. -->
 
-**Base model:**
+**Base model:** `distilbert-base-uncased`
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, max length 128 tokens, seed 42
 
-**Anything I changed from the defaults, and why:**
+**Anything I changed from the defaults, and why:** I didn't change any of the training settings. The one thing I changed was the environment: the notebook first crashed with a `dill` pickling error because the project's virtual environment used Python 3.14, which `requirements.txt` says is not supported. I rebuilt the `.venv` with Python 3.13 and training then ran. Training uses the Apple Silicon GPU (MPS).
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+**Split sizes:** 139 train / 31 val / 30 test (a stratified 70/15/15 split of my 200 posts).
 
+| Label | Train | Val | Test |
+|---|---|---|---|
+| `info` | 33 | 7 | 7 |
+| `experience` | 58 | 13 | 12 |
+| `appreciation` | 29 | 7 | 7 |
+| `question` | 19 | 4 | 4 |
 
+Three labels have fewer than about 8 examples in the test split: `info` (7), `appreciation` (7) and `question` (4). Scores for those labels will move a lot between seeds, because one wrong prediction on `question` changes its recall by 25 points.
 
 ---
 
