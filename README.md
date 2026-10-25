@@ -39,97 +39,99 @@
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
-
-
+TakeMeter sorts posts and comments from Reddit's Miffy collector community into four kinds: people passing on buying information (`info`), people sharing their own Miffy story or opinion (`experience`), people asking the group for help (`question`), and short comments that just like or agree with a post (`appreciation`). Most of the posts are about where to find Miffy merch, what people own, and how they feel about the Miffy boom. The goal is to help a moderator or shopper quickly pull out the useful buying tips and unanswered questions from a very busy feed.
 
 ---
 
 ## Label Taxonomy
 
-<!-- Each label: a one-sentence definition and two real examples from your
-     reading. Then your decision rule for the hardest boundary.
+### `info`
 
-     The decision rule is worth a point on its own and it's the thing most
-     people leave out. Every taxonomy has a hardest boundary. Name yours. -->
-
-### `label_one`
-
-**Definition:**
+**Definition:** Gives practical, checkable details about Miffy products or buying them (where something is sold, prices, stock, release dates, whether a seller is legit); the post is mainly about passing that information on.
 
 **Example 1:**
->
+> Those look like the Blue Sky Halloween Miffy candle houses! I know they were released early October at TJMaxx/Homegoods.
 
 **Example 2:**
->
+> Hey LA people, stop chasing that polyester from Target! There is a new Miffy pop up in Downtown LA at the Bloc!
 
-### `label_two`
+### `experience`
 
-**Definition:**
+**Definition:** The writer talks about their own Miffy experience, collection, or opinion (what they own or bought, how they got into Miffy, how they feel about the trend); the focus is their personal story or view, not facts for others or a request.
 
 **Example 1:**
->
+> Miffy is a character, anyone can start liking miffy lol I grew up with Hello Kitty, and I started to like Miffy for her aesthetics and I like to collect things.
 
 **Example 2:**
->
+> I bought the purple one for a friend. NGL, I want to keep it. Then I spent an hour tonight trying to figure out which one I’d want most. I ended up getting Melanie. Now I’m regretting and want the others! lol
+
+### `question`
+
+**Definition:** The main purpose is to ask other readers for an answer, advice, or opinion (where to buy, is it good quality, has anyone used this seller); it has a question or explicit request, even if context comes first.
+
+**Example 1:**
+> Anyone purchase from Martube gift before?
+
+**Example 2:**
+> Can I have the link for this?
+
+### `appreciation`
+
+**Definition:** A short comment that just likes or agrees with the post (compliments, "love this", "same", "so cute"); it adds no new facts, no personal story, and asks no question.
+
+**Example 1:**
+> Super cute!
+
+**Example 2:**
+> They’re fabulous! You’re so lucky!
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `info` and `experience`
 
 **The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
-
-
+If the post's main point is a fact another shopper could act on (where it's sold, price, stock, whether a seller is legit), it's `info`, even when it's told in the first person ("I went to Target and they said..."). If the main point is what the writer owns, bought, or feels, and any store or price is just part of their story, it's `experience`. If a post is mainly a request, it's `question` no matter how much story comes first.
 
 ---
 
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+**Where the posts came from:** Reddit posts and comments from r/miffy, mostly about buying Miffy merch (Target, TJ Maxx, HEMA, pop-ups, resellers), showing collections, and the Miffy trend.
 
-**Where the posts came from:**
-
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:** I labelled the first 33 cold myself. The other 167 were pre-labelled by Claude using my four definitions, and I then read and checked every one of them, correcting the ones I disagreed with. Rows are marked `cold` or `pre-labeled, checked` in the note column of `labels.csv`.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `experience` | 83 | 41.5% |
+| `info` | 47 | 23.5% |
+| `appreciation` | 43 | 21.5% |
+| `question` | 27 | 13.5% |
+| **Total** | 200 | 100% |
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
-
 **1.**
-> *The post:*
+> *The post:* I went to Target yesterday, and even though the app showed that the item was in stock, the employees told me they weren’t allowed to sell it. They said they couldn’t take it out of the back room, even though the item had already been officially released and was listed as in stock. …
 >
-> *Could have been:*
+> *Could have been:* `experience` or `info`
 >
-> *I chose, because:*
+> *I chose,* `info`*, because:* it's told as a personal story, but its main point is a fact other shoppers can use: the app can say in stock while the store won't sell it.
 
 **2.**
-> *The post:*
+> *The post:* To try and control my impulses (and because my husband will totally think I’m officially crazy if I buy one more Miffy) I began taking screenshots of all the interesting Miffy’s out there that I haven’t seen around much. What’s a rare Miffy you found?
 >
-> *Could have been:*
+> *Could have been:* `experience` or `question`
 >
-> *I chose, because:*
+> *I chose,* `question`*, because:* most of the post is the writer's story, but it ends with a direct request to the group, so the purpose is to get answers.
 
 **3.**
-> *The post:*
+> *The post:* I’ve always loved Miffy & HK, but does anyone else feel like licensed character merchandise as a whole has become an automatic target for scalpers & has turned people into overnight fans? …
 >
-> *Could have been:*
+> *Could have been:* `experience` or `question`
 >
-> *I chose, because:*
+> *I chose,* `experience`*, because:* it does ask "does anyone else feel...", but the post is mostly the writer's own opinion about scalpers and the Miffy boom, and the question is just a way to share that view, not a request for an answer.
 
 ---
 
@@ -162,17 +164,17 @@ of next unit's variance. -->
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* Help redefining my label definitions, which were one-line and overlapped (my `reaction` and `question` labels).
+- *What came back:* Longer definitions based on what a post is mainly for, so there is a clear way to break ties between labels.
+- *What I changed:* I renamed `reaction` to `experience`, then asked for the definition to be broadened so it covers anyone telling their own Miffy story or opinion, not just a reaction to something that just happened.
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* Whether I needed another label, because many of my Reddit comments just said they liked a post.
+- *What came back:* A suggestion to add `appreciation`, plus rewritten definitions for the other three that fit Miffy buying and collecting posts. It also adjusted my balance target for four labels.
+- *What I changed:* I accepted `appreciation` and the new definitions, then read through the labels Claude gave my posts and corrected the ones I disagreed with.
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** I labelled the first 33 posts myself without a model. Claude pre-labelled the other 167 using my four definitions, and I read and checked every one before marking it `pre-labeled, checked` in `labels.csv`.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
