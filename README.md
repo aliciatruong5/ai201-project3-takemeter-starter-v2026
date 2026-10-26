@@ -195,20 +195,24 @@ Three labels have fewer than about 8 examples in the test split: `info` (7), `ap
 
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.300 | 0.400 | +0.100 |
+| Macro F1 | 0.204 | 0.143 | -0.061 |
+| F1 — `appreciation` | 0.000 | 0.000 | +0.000 |
+| F1 — `experience` | 0.387 | 0.571 | +0.184 |
+| F1 — `info` | 0.000 | 0.000 | +0.000 |
+| F1 — `question` | 0.429 | 0.000 | -0.429 |
 
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
      prediction made afterwards isn't one. -->
+I expect the fine-tuned model to gain the most over the baseline on `experience` and `info`. Those two labels overlap the most in my data, since a lot of posts tell a personal story and also mention where something was bought or how much it cost. A model working only from my one-line definitions has no way to learn where I draw that line. A model trained on 139 posts I labelled myself can pick up the pattern: `experience` is about what the writer owns or feels, and `info` is about facts another shopper could use. For `question` and `appreciation` I expect the baseline to hold its own, or even win. Both are easy to spot straight from the definition (a request for an answer, or a short "so cute"), and the fine-tuned model has few examples of them to learn from (19 and 29 in training).
 
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
+Fine-tuning added very little. The trained model is ahead on accuracy (0.40 vs 0.30), but that is 3 more posts right out of 30, and it is behind on macro F1 (0.14 vs 0.20). Both models are weak. The trained model gets all of its score from `experience`, my biggest label (83 of 200 posts), where it beats the baseline (F1 0.57 vs 0.39). It scored 0 on `info`, `appreciation` and `question`, which means it mostly learned to guess the biggest label. The baseline is the only one that gets any `question` posts right (F1 0.43), but it scored 0 on `info` and `appreciation`.
 
-
+This partly matches my prediction. The trained model did win on `experience` and the baseline did win on `question`. I was wrong about `info`, where neither model scored, and about `appreciation`, where I expected the baseline to do well and it scored 0. The test set is only 30 posts (4 `question`, 7 each for `info` and `appreciation`), so a single run on one seed can't tell me much. The three-seed run next unit will show whether the `experience` gain and the `question` loss are real or just a result of this one split.
 
 ---
 
