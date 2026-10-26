@@ -223,29 +223,27 @@ This partly matches my prediction. The trained model did win on `experience` and
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.70 on every seed | 0.400 | 0.433 | 0.400 | MISSED |
+| 2. Every label's F1 | ≥ 0.60 for every label | lowest 0.000 (`info`, `appreciation`, `question`) | lowest 0.000 (same three) | lowest 0.000 (same three) | MISSED |
+| 3. Balance | every label 15–40% of my data | 13.5% – 41.5% | 13.5% – 41.5% | 13.5% – 41.5% | MISSED |
+| 4. Consistency | ≥ 85% agreement when I relabel 30 of my own posts | not measured yet | not measured yet | not measured yet | NOT MEASURED YET |
+| 5. Confidence | ≥ 0.80-confidence predictions right ≥ 85% of the time, and more often than less-sure ones | most-sure third 0.50 vs least-sure third 0.10 | 0.50 vs 0.40 | 0.40 vs 0.40 | MISSED |
+
+Criterion 3 does not depend on the seed, because it is about my labelled data (`experience` is 41.5% and `question` is 13.5%), so the same numbers appear in every column. For criterion 5, the model's average confidence was only about 0.36–0.40 on every seed, so it almost certainly never made a 0.80-confidence prediction at all, and the "most-sure third" is the closest thing I can measure.
 
 ### Confusion matrix
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+Seed 42:
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| true \ predicted | info | experience | appreciation | question |
+|---|---|---|---|---|
+| **info** | 0 | 7 | 0 | 0 |
+| **experience** | 0 | 12 | 0 | 0 |
+| **appreciation** | 0 | 7 | 0 | 0 |
+| **question** | 0 | 4 | 0 | 0 |
 
 **My biggest off-diagonal number, and what it means:**
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
-
-
+The biggest number is 7: 7 real `info` posts were called `experience`, and 0 went the other way. The same 7 happened for `appreciation`, and all 4 `question` posts were called `experience` too. The model called every one of the 30 test posts `experience`, so it didn't learn the `info`/`experience` boundary or any other. It learned to guess my biggest label (83 of 200). The one-direction pattern is the model collapsing onto the biggest label, not evidence of a particular labelling problem. The agreement report can still help show whether the `info`/`experience` line is blurry in my own labels.
 
 ---
 
