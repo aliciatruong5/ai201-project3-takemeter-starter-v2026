@@ -179,6 +179,12 @@ Three labels have fewer than about 8 examples in the test split: `info` (7), `ap
 - *What came back:* A suggestion to add `appreciation`, plus rewritten definitions for the other three that fit Miffy buying and collecting posts. It also adjusted my balance target for four labels.
 - *What I changed:* I accepted `appreciation` and the new definitions, then read through the labels Claude gave my posts and corrected the ones I disagreed with.
 
+**Moment 3**
+
+- *What I asked for:* Why `python agreement.py` wasn't working. I pasted the error "No file at my_staff_labels.csv".
+- *What came back:* Claude found two separate problems. First, my file was named `my_staff_labels.csv.csv` (a double extension), but `agreement.py` looks for `my_staff_labels.csv` by default. After that was fixed, a second error appeared: my header row was `text, label` with a space before `label`, so the script couldn't find a `label` column. Claude fixed both and re-ran the script.
+- *What I changed:* I renamed the file to `my_staff_labels.csv` and corrected the header to `text,label`. The script then ran: I agreed with staff on 28 of 30 posts (93%).
+
 **Pre-labelling disclosure:** I labelled the first 33 posts myself without a model. Claude pre-labelled the other 167 using my four definitions, and I read and checked every one before marking it `pre-labeled, checked` in `labels.csv`.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
