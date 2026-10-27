@@ -329,40 +329,49 @@ I disagreed with staff on 2 of 30 posts, and both were pile (a): the written rul
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** One training setting: epochs, from 3 to 10. Learning rate (2e-5), batch size (16), max length (128), the data and the labels stayed the same. No rows in `labels.csv` changed for this run.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** My diagnosis for criteria 1, 2 and 5 said the model never learned to separate the labels and was undertrained: it called every test post `experience`, and its validation loss barely moved over 3 epochs (about 1.32 to 1.26, against about 1.39 for pure guessing among four labels). The agreement report ruled out a labelling problem (28 of 30, 93%), so a training setting was the cheapest thing to test first. The other real cause was too few examples for the small labels (only 19 `question` in training), and 10 epochs does nothing about that.
 
 ### Run Log — After
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.70 on every seed | 0.533 | 0.467 | 0.500 | MISSED |
+| 2. Every label's F1 | ≥ 0.60 for every label | lowest 0.000 (`question`) | lowest 0.000 (`appreciation`, `question`) | lowest 0.000 (`question`) | MISSED |
+| 3. Balance | every label 15–40% of my data | 13.5% – 41.5% | 13.5% – 41.5% | 13.5% – 41.5% | MISSED (unchanged, I didn't touch the data) |
+| 4. Consistency | ≥ 85% agreement when I relabel 30 of my own posts | not measured yet | not measured yet | not measured yet | NOT MEASURED |
+| 5. Confidence | ≥ 0.80-confidence predictions right ≥ 85%, and more often than less-sure ones | most-sure third 0.80 vs least-sure third 0.30 | 0.70 vs 0.50 | 0.70 vs 0.40 | MISSED |
+
+Per-label F1 after the change (before in brackets):
+
+| Label | Seed 42 | Seed 7 | Seed 2024 |
+|---|---|---|---|
+| `info` | 0.62 (0.00) | 0.50 (0.00) | 0.44 (0.00) |
+| `experience` | 0.58 (0.57) | 0.59 (0.61) | 0.62 (0.57) |
+| `appreciation` | 0.50 (0.00) | 0.00 (0.00) | 0.25 (0.00) |
+| `question` | 0.00 (0.00) | 0.00 (0.00) | 0.00 (0.00) |
 
 **Did it help, and how do I know:**
-
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
-
-
+It helped, but not enough to meet any target. Accuracy went from 0.400 / 0.433 / 0.400 to 0.533 / 0.467 / 0.500 and macro F1 from about 0.14–0.15 to 0.27–0.42, on all three seeds. The model also stopped calling every post `experience`: on seed 42, `info` now gets 4 of 7 right (it got 0 of 7), and `appreciation` gets 3 of 7. The most-sure third of predictions is now right more often than the least-sure third on every seed (0.80 vs 0.30, 0.70 vs 0.50, 0.70 vs 0.40), where before seed 2024 was 0.40 vs 0.40. That part of criterion 5 now holds, but the 0.80-confidence part does not, because the model's average confidence when right is only about 0.50.
+It didn't fix `question`, which scored 0.00 on all three seeds: on seed 42 its 4 test posts were called `experience` (3) and `info` (1). That fits my diagnosis, because training longer can't create examples that aren't there, and I have only 19 `question` posts in training. The gap between seeds is also wide (accuracy 0.467 to 0.533, `appreciation` F1 from 0.00 to 0.50), and the test set is only 30 posts, so the improvement is real on average but I wouldn't trust any single seed's number. I haven't tried any other epoch count or learning rate, so 10 isn't shown to be the best setting.
 
 ---
 
 ## What's Still Broken
 
-<!-- For each criterion still missed: what you'd do, and why you stopped. -->
+**Criterion 1, overall accuracy (≥ 0.70): MISSED, best seed 0.533.** I would collect more posts, especially for `question` and `appreciation`, and then try a few epoch counts and learning rates instead of only 10 epochs. I stopped because the diagnosis points at too little data, and I can't fix that by changing a setting. I only got one improvement in this unit, and it moved accuracy about 10 points, which isn't close to the 17 I still need.
 
+**Criterion 2, every label's F1 (≥ 0.60): MISSED, `question` is 0.00 on all three seeds.** I would add about 30 or more `question` posts from r/miffy, labelled with the same definition, because the model has only 19 `question` examples in training and its 4 test posts were all called other labels. I stopped because collecting and labelling that many posts would be a whole second round of data work, and training longer can't create examples that aren't in the data.
 
+**Criterion 3, balance (every label 15–40%): MISSED.** `experience` is 41.5% and `question` is 13.5%. I would collect more `question` posts, which would fix the `question` share and pull `experience` below 40% at the same time. I didn't change this because it can't be fixed by relabelling: my labels follow my definitions, so moving rows between labels just to hit the percentage would mean changing labels I believe are right. I'm not going to lower the target either.
 
-**The gap between what I meant my labels to capture and what the model
-learned:**
-<!-- Two sentences. Your confusion matrix is the evidence. -->
+**Criterion 4, consistency (≥ 85% when I relabel my own posts): NOT MEASURED.** I would relabel 30 of my own posts without looking at my first labels and compare. I haven't done it. The 93% agreement with staff and the fact that I changed only 2 of 167 pre-labels are both encouraging, but neither is the test I wrote down.
 
+**Criterion 5, confidence (≥ 0.80-confidence predictions right ≥ 85%): MISSED.** The part about confident guesses being more accurate than unsure ones now holds on all three seeds, but the model's average confidence when right is only about 0.50, so it never makes the 0.80 predictions the target is about. I would train on more data, since a model with so few examples isn't going to be sure of itself. I stopped for the same reason as criterion 1.
 
+**The gap between what I meant my labels to capture and what the model learned:**
+I meant `info` (a fact other shoppers can use) and `experience` (the writer's own story) to be different kinds of posts, but on seed 42 the model still called 3 of 7 `info` posts `experience`, and 4 of 7 `appreciation` posts and 3 of 4 `question` posts `experience` too. It learned "personal and first-person means `experience`" much better than the actual decision rules, so the smaller labels are mostly being absorbed into my biggest one.
 
 <!-- ═════════════════════════════════════════════════════════════════════
 
