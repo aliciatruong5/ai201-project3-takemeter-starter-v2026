@@ -254,24 +254,23 @@ The biggest number is 7: 7 real `info` posts were called `experience`, and 0 wen
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | ≥ 0.70 on every seed | MISSED | 0.400, 0.433, 0.400. All three are below 0.70, and the best seed is 0.267 short. |
+| 2 | Every label's F1 | ≥ 0.60 for every label | MISSED | `info`, `appreciation` and `question` scored 0.000 on all three seeds. Only `experience` got a score (0.571, 0.605, 0.571), and even that is below 0.60 on two of three seeds. |
+| 3 | Balance | every label 15–40% of my data | MISSED | `experience` is 83 of 200 (41.5%), over the 40% ceiling, and `question` is 27 of 200 (13.5%), under the 15% floor. This comes from my labelled data, so it is the same on every seed. |
+| 4 | Consistency | ≥ 85% agreement when I relabel 30 of my own posts | NOT MEASURED | I haven't done the blind relabel of my own posts. I did agree with staff on 28 of 30 (93%), but that tests a different thing: applying staff's written rules to running-forum posts, not my own Miffy labels. I'm not counting it as MET. |
+| 5 | Confidence | ≥ 0.80-confidence predictions right ≥ 85% of the time, and more often than less-sure ones | MISSED | The model's average confidence was only 0.36–0.40, so it almost certainly never reached 0.80. The most-sure third was right 50%, 50% and 40% of the time, and the least-sure third 10%, 40% and 40%, so it was no better on seed 2024. |
 
 **Diagnoses**
 
-<!-- For each miss: the cause, and how you know. The four common causes are:
-     too few examples for a label, a boundary you applied inconsistently, a
-     genuinely hard label pair, and a task the model can't reach from this
-     much data.
+**Criteria 1, 2 and 5: the model never learned to separate the labels (too few examples, and an unbalanced set).**
+The confusion matrix on seed 42 shows the model called all 30 test posts `experience`, my biggest label. That alone explains the accuracy of 0.400, because 12 of the 30 test posts are `experience`, so always guessing it scores 12 / 30 = 0.40. The F1 of 0 on the other three labels and the weak confidence follow from the same thing. The model's validation loss also barely moved across training (about 1.32 to 1.26, against about 1.39 for pure guessing among four labels), so it hadn't learned much by the end of 3 epochs. With 139 training posts, only 19 `question` and 29 `appreciation` examples, and a skewed split, there isn't enough signal for a small model to pick up the three smaller labels.
+How I know it is not a labelling problem: my agreement with staff was 93% (28 of 30), and the two disagreements were both cases where I applied a clear written rule loosely, not cases where the labels were ambiguous. The zero-shot baseline with bare label names also scored 0.667 accuracy and 0.676 macro F1 on the same 30 posts, so the four labels can be told apart. The problem is the amount of data and its balance, not that the task can't be done. The agreement set is a different taxonomy and domain, so this is indirect evidence about my own 200 labels, not proof.
 
-     ⚠️ Use your agreement report as evidence. It is the only instrument you
-     have that can tell a LABELLING problem from a MODEL problem, and this
-     section is graded on whether you used it that way. -->
+**Criterion 3: balance missed because of how Miffy posts are distributed.**
+The community naturally has many personal posts and few direct questions, so `experience` ends up biggest and `question` smallest. I set the ceiling and floor before collecting. `experience` is over by 1.5 points and `question` is under by 1.5 points, which is a small miss in my own data, not a labelling error. The agreement report doesn't point to a consistency problem, but my two pile (a) disagreements suggest I should re-check the `info`/`experience` boundary in my own labels, since a mislabelled `info` post that I called `experience` would add to the `experience` count.
 
-
+**Criterion 4: not measured.**
+I need to relabel 30 of my own posts without looking at my earlier labels and then compare them. Until I do, I can't say MET or MISSED.
 
 ---
 
@@ -283,7 +282,7 @@ The biggest number is 7: 7 real `info` posts were called `experience`, and 0 wen
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** 28 / 30 = 93%
 
 <!-- Nobody grades this number. A 60% who argues every disagreement from the
      stated rules beats a 95% who wrote "staff was right" nine times. Several
@@ -306,26 +305,25 @@ The biggest number is 7: 7 real `info` posts were called `experience`, and 0 wen
      what you did across your own 200. -->
 
 **1.**
-> *The post:*
+> *The post:* Carbon plates aren't the whole story. My times dropped 2% in the shoes and another 2% the following year in the same pair, when the only thing that changed was going from 35 to 50 miles a week.
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. Rule 1 asks whether the checkable fact carries the argument. Here it does: the claim "plates aren't the whole story" rests on the 2% drops and the 35 → 50 miles a week, and without those numbers there is no argument. I read the opening line as a confident claim and stopped there, instead of asking whether the numbers were load-bearing or decoration.
 >
-> *Which pile:*
+> *Which pile:* (a) the rule covered it and I applied it loosely.
 
 **2.**
-> *The post:*
+> *The post:* Every injury thread on this forum is the same injury and the same three replies.
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `hot_take` / `reaction`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. Rule 2 says `reaction` reports what just happened to the writer and how it felt, and `hot_take` asserts something general about the world. This post says nothing about something that happened to the writer or how they felt. It claims something general about every injury thread, with no support, and the rule says a heated post can still be a `hot_take`. I let the annoyed tone decide, when the rule says to ask whether the post is about a claim or about the writer.
 >
-> *Which pile:*
+> *Which pile:* (a) the rule covered it and I applied it loosely.
 
 **What the pattern in my disagreements tells me:**
-
-
+I disagreed with staff on 2 of 30 posts, and both were pile (a): the written rule covered the case and I applied it loosely. In both, a surface feature of the post (a confident opening line in the first, an annoyed tone in the second) outweighed the test the rule actually gives. I didn't win any, and neither is a gap in the definitions. That's evidence about my own 200 labels: I probably did the same on my Miffy posts, especially on the `info`/`experience` boundary, where a first-person story can hide a fact other shoppers could use, and my own decision rule says the fact decides. It also lines up with the confusion matrix, where `info` and `experience` are the pair the model couldn't separate. 28 of 30 is a high agreement rate, so I don't think my labelling was careless, but it suggests I should re-check my `info` and `experience` labels against the decision rule instead of the tone of the post.
 
 ---
 
